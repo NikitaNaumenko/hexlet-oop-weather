@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+require 'weather'
+require 'awesome_print'
+require 'net/http'
+
+SERVICES = {
+  meta_weather: Weather::MetaWeather,
+  api_xu: Weather::Apixu
+}.freeze
+weather = Weather::Client.new(http_client: Net::HTTP, service: SERVICES[:meta_weather])
+puts weather.get_info(city: 'berlin')
+
+weather = Weather::Client.new(api_key: '2f9535c69a8040889c760939191002', http_client: Net::HTTP, service: SERVICES[:api_xu])
+puts weather.get_info(city: 'berlin')
